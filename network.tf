@@ -299,51 +299,10 @@ resource "oci_core_drg_route_table" "to_firewall_route_table" {
   drg_id       = oci_core_drg.drg1.id
   display_name = "To-Firewall"
 }
-resource "oci_core_drg_route_table_route_rule" "from_firewall_drg_route_table_route_rule_spoke_A" {
-  drg_route_table_id         = oci_core_drg_route_table.from_firewall_route_table.id
 
-  destination                = "10.10.1.0/24"
-  destination_type           = "CIDR_BLOCK"
-  next_hop_drg_attachment_id = oci_core_drg_attachment.spokeA_drg_attachment.id
-  
-}
-resource "oci_core_drg_route_table_route_rule" "from_firewall_drg_route_table_route_rule_spoke_B" {
-  drg_route_table_id         = oci_core_drg_route_table.from_firewall_route_table.id
-
-  destination                = "10.10.2.0/24"
-  destination_type           = "CIDR_BLOCK"
-  next_hop_drg_attachment_id = oci_core_drg_attachment.spokeB_drg_attachment.id
-}
 
 # ------ DRG to Firewall Route Table
 
-
-resource "oci_core_drg_route_table_route_rule" "vcn_route_tables_rule_spoke_A" {
-  drg_route_table_id         = oci_core_drg_route_table.to_firewall_route_table.id
-
-  destination                = "10.10.0.0/24"
-  destination_type           = "CIDR_BLOCK"
-  next_hop_drg_attachment_id = oci_core_drg_attachment.spokeA_drg_attachment.id
-  
-}
-
-resource "oci_core_drg_route_table_route_rule" "vcn_route_tables_rule_spoke_B" {
-  drg_route_table_id         = oci_core_drg_route_table.to_firewall_route_table.id
-
-  destination                = "10.10.1.0/24"
-  destination_type           = "CIDR_BLOCK"
-  next_hop_drg_attachment_id = oci_core_drg_attachment.spokeB_drg_attachment.id
-  
-}
-# ------ Add DRG To Firewall Route Table Entry
-resource "oci_core_drg_route_table_route_rule" "vcn_route_tables_default_route" {
-  drg_route_table_id         = oci_core_drg_route_table.to_firewall_route_table.id
-
-  destination                = "0.0.0.0/0"
-  destination_type           = "CIDR_BLOCK"
-  next_hop_drg_attachment_id = oci_core_drg_attachment.hub_drg_attachment.id
-  
-}
 # ------ Add DRG To Firewall Route Table Entry
 resource "oci_core_drg_route_table_route_rule" "to_firewall_drg_route_table_route_rule" {
   drg_route_table_id         = oci_core_drg_route_table.to_firewall_route_table.id
